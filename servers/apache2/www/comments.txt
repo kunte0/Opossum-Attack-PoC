@@ -1,0 +1,18 @@
+
+GET /subresource.png HTTP/1.1
+Host: b.com:1234
+Connection: keep-alive
+Pragma: no-cache
+Cache-Control: no-cache
+sec-ch-ua-platform: "macOS"
+Accept-Language: en-GB,en;q=0.9
+sec-ch-ua: "Chromium";v="135", "Not-A.Brand";v="8"
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: https://b.com:1234/fake
+Accept-Encoding: gzip, deflate, br, zstd
+Cookie: session=secret

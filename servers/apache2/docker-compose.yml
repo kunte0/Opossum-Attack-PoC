@@ -1,0 +1,13 @@
+
+services:
+  apache2:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./conf/default.conf:/etc/apache2/sites-enabled/000-default.conf
+      - ./www/:/var/www/html
+      - ./certs/rootCA.pem:/etc/ssl/certs/rootCA.pem

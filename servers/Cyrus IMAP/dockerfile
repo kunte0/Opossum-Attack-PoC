@@ -1,0 +1,40 @@
+FROM ubuntu:24.04
+ENV DEBIAN_FRONTEND=noninteractive
+
+
+RUN apt-get update && apt-get install -y \
+    cyrus-caldav\
+    cyrus-imapd \
+    openssl \
+    vim \
+    strace \
+    net-tools \
+    syslog-ng \ 
+    inotify-tools \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+
+ENV CYRUS_VERBOSE=1
+
+RUN openssl req -x509 -nodes -newkey rsa:4096 \
+  -keyout /etc/ssl/private/cyrus-imapd-ca.key \
+  -out /etc/ssl/certs/cyrus-imapd-ca.pem \
+  -days 3650 \
+  -subj "/CN=Cyrus IMAP CA"
+
+
+RUN openssl genrsa -out "/tmp/tls.key" 2048
+
+RUN openssl req -new -x509 -key "/tmp/tls.key" -out "/tmp/cert.pem" -days 365 \
+  -subj "/C=US/ST=State/L=City/O=Organization/OU=Unit/CN=localhost"
+
+# Set appropriate permissions for the private key
+RUN chmod 777 /tmp/cert.pem
+RUN chmod 777 /tmp/tls.key
+RUN chmod 777 /etc/ssl/private/cyrus-imapd-ca.key
+
+
+COPY ./start.sh /start.sh
+# COPY ./imapd.conf /etc/imapd.conf
+
+CMD ["bash", "/start.sh"]

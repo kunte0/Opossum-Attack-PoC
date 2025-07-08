@@ -1,0 +1,10 @@
+services:
+  cyrus:
+    build: .
+    ports:
+      - "8008:8008"
+      - "8443:8443"
+    volumes:
+       - ./cyrus.conf:/etc/cyrus.conf
+       - ./imapd.conf:/etc/imapd.conf
+       - ./index.html:/tmp/www/index.html

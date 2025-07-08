@@ -1,0 +1,10 @@
+# Build the image based on the official Dovecot image
+# https://hub.docker.com/r/dovecot/dovecot
+FROM dovecot/dovecot:2.4.0
+
+# Copy the configuration files
+COPY configurations/dovecot/conf.d /etc/dovecot/conf.d
+
+# Copy the server key and certificate
+COPY authentication/server.key /etc/dovecot/ssl/server.key
+COPY authentication/server.crt /etc/dovecot/ssl/server.crt

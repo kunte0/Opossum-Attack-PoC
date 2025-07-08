@@ -1,0 +1,10 @@
+
+services:
+  cups:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "631:631"
+    volumes:
+      - ./conf/cupsd.conf:/etc/cups/cupsd.conf

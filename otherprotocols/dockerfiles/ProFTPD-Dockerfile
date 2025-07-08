@@ -1,0 +1,11 @@
+# Build the image based on the official Server Side Up image
+# https://hub.docker.com/r/serversideup/proftpd
+FROM serversideup/proftpd:v1.0.2
+
+# Copy the selected configuration file
+ARG CONFIG_FILE
+COPY ${CONFIG_FILE} /etc/proftpd/proftpd.conf
+
+# Copy the server key and certificate
+COPY authentication/server.key /etc/ssl/ftp/proftpd.key
+COPY authentication/server.crt /etc/ssl/ftp/proftpd.crt

@@ -1,0 +1,51 @@
+services:
+  nntp-server:
+    container_name: nntp-server
+    build:
+      context: .
+      dockerfile: dockerfiles/NNTP-Dockerfile
+    ports:
+      - "119:119" # NNTP + Implicit TLS
+      - "563:563" # NTTP + Opportunistic TLS
+
+  dovecot-server:
+    container_name: dovecot-server
+    build:
+      context: .
+      dockerfile: dockerfiles/Dovecot-Dockerfile
+    ports:
+      - "31024:31024" # LMTP + Implicit TLS
+      - "31023:31023" # LMTP + Opportunistic TLS
+
+  apache-james-server:
+    container_name: apache-james-server
+    build:
+      context: .
+      dockerfile: dockerfiles/Apache-James-Dockerfile
+    ports:
+      - "465:465" # SMTP + Implicit TLS
+      - "587:587" # SMTP + Opportunistic TLS
+      - "995:995" # POP3 + Implicit TLS
+      - "110:110" # POP3 + Opportunistic TLS
+      - "993:993" # IMAP + Implicit TLS
+      - "143:143" # IMAP + Opportunistic TLS
+
+  proftpd-implicit-server:
+    container_name: proftpd-implicit-server
+    build:
+      context: .
+      dockerfile: dockerfiles/ProFTPD-Dockerfile
+      args:
+        CONFIG_FILE: configurations/proftpd/proftpd-implicit-tls.conf
+    ports:
+      - "21:21" # FTP + Implicit TLS
+
+  proftpd-opportunistic-server:
+    container_name: proftpd-opportunistic-server
+    build:
+      context: .
+      dockerfile: dockerfiles/ProFTPD-Dockerfile
+      args:
+        CONFIG_FILE: configurations/proftpd/proftpd-opportunistic-tls.conf
+    ports:
+      - "2121:21" # FTP + Opportunistic TLS

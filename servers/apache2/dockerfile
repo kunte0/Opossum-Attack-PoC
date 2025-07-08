@@ -1,0 +1,20 @@
+FROM ubuntu:24.04
+
+# Set environment variables to prevent interactive prompts during package installation
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Update package list and install apache2 strace
+RUN apt-get update && \
+    apt-get install -y apache2 libapache2-mod-php strace && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+
+# Enable the required Apache modules (if needed, adjust based on requirements)
+RUN a2enmod rewrite && \
+    a2enmod ssl
+
+COPY start.sh start.sh
+
+# Start the Apache service
+CMD ["bash", "start.sh"]

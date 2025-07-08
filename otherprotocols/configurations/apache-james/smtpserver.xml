@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<smtpservers>
+	<smtpserver enabled="true">
+		<jmxName>smtpserver</jmxName>
+		<bind>0.0.0.0:587</bind>
+		<tls socketTLS="false" startTLS="true">
+			<privateKey>file://conf/server.key</privateKey>
+			<certificates>file://conf/server.crt</certificates>
+			<supportedProtocols>
+				<protocol>TLSv1.2</protocol>
+			</supportedProtocols>
+		</tls>
+		<smtpGreeting>Apache JAMES awesome SMTP Server</smtpGreeting>
+		<handlerchain>
+			<handler class="org.apache.james.smtpserver.fastfail.ValidRcptHandler"/>
+			<handler class="org.apache.james.smtpserver.CoreCmdHandlerLoader"/>
+		</handlerchain>
+	</smtpserver>
+	<smtpserver enabled="true">
+		<jmxName>smtpserver-ssl</jmxName>
+		<bind>0.0.0.0:465</bind>
+		<tls socketTLS="true" startTLS="false">
+			<privateKey>file://conf/server.key</privateKey>
+			<certificates>file://conf/server.crt</certificates>
+			<supportedProtocols>
+				<protocol>TLSv1.2</protocol>
+			</supportedProtocols>
+		</tls>
+		<smtpGreeting>Apache JAMES awesome SMTP Server</smtpGreeting>
+		<handlerchain>
+			<handler class="org.apache.james.smtpserver.fastfail.ValidRcptHandler"/>
+			<handler class="org.apache.james.smtpserver.CoreCmdHandlerLoader"/>
+		</handlerchain>
+	</smtpserver>
+</smtpservers>

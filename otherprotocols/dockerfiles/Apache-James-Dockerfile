@@ -1,0 +1,12 @@
+# Build the image based on the official Apache James image
+# https://hub.docker.com/r/apache/james
+FROM apache/james:memory-3.8.2
+
+# Copy the configuration files
+COPY configurations/apache-james/imapserver.xml /root/conf/imapserver.xml
+COPY configurations/apache-james/pop3server.xml /root/conf/pop3server.xml
+COPY configurations/apache-james/smtpserver.xml /root/conf/smtpserver.xml
+
+# Copy the server key and certificate
+COPY authentication/server.key /root/conf/server.key
+COPY authentication/server.crt /root/conf/server.crt

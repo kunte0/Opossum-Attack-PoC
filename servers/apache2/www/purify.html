@@ -1,0 +1,16 @@
+<script src="purify.js"></script>
+
+<span id="test"></span>
+
+<script>
+
+let dirty = "<img src=x onerror=alert(1)>";
+try {
+    let clean = DOMPurify.sanitize(dirty);
+    test.innerHTML = clean;
+} catch (e) {
+    test.innerHTML = dirty;
+}
+
+
+</script>

@@ -1,0 +1,45 @@
+FROM ubuntu:24.04
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install build dependencies
+RUN apt-get update && apt-get install -y \
+    git \
+    build-essential \
+    autoconf \
+    automake \
+    libtool \
+    pkg-config \
+    libigloo-dev \
+    libvorbis-dev \
+    librhash-dev \
+    libssl-dev \
+    libxml2-dev \
+    libxslt-dev \
+    libcurl4-openssl-dev \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Clone the Icecast source repository (with submodules)
+WORKDIR /tmp
+RUN git clone --recursive https://gitlab.xiph.org/xiph/icecast-server.git
+
+WORKDIR /tmp/icecast-server
+# Prepare the build system and build the project
+RUN ./autogen.sh && \
+    ./configure --with-curl --with-openssl && \
+    make && \
+    make install
+
+# Generate default certificate 
+COPY cert.sh /tmp/cert.sh
+RUN bash /tmp/cert.sh
+
+# example ogg
+COPY example.ogg /usr/local/share/icecast/web/example.ogg
+
+
+RUN mkdir -p /usr/local/var/log/icecast/ && \
+    touch /usr/local/var/log/icecast/error.log /usr/local/var/log/icecast/access.log && \
+    chmod 777 /usr/local/var/log/icecast/error.log /usr/local/var/log/icecast/access.log
+
+# Start Icecast with the configuration file
+CMD ["sh", "-c", "tail -f /usr/local/var/log/icecast/error.log  & icecast -c /etc/icecast2/icecast.xml"]

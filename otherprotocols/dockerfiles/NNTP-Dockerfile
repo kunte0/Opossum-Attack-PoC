@@ -1,0 +1,21 @@
+FROM debian:bullseye-slim
+
+# Update and install required packages
+RUN apt-get update && \
+    apt-get install -y inn openssl && \
+    rm -rf /var/lib/apt/lists/*
+
+# Create directory for configuration
+RUN mkdir -p /etc/news /etc/inn/certs /var/spool/news
+
+# Create minimal configuration
+RUN echo "\
+# Minimal INN configuration\n\
+PathNewsSpool: /var/spool/news\n\
+ServerHostName: nntp.example.com\n\
+PathHost: nntp.example.com\n\
+ServerAdmin: admin@example.com\n\
+" > /etc/news/inn.conf
+
+# Start the server
+CMD ["/usr/sbin/innd", "-d"]

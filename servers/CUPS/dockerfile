@@ -1,0 +1,27 @@
+FROM ubuntu:24.04
+
+# Set environment variables to prevent interactive prompts during package installation
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Update package list and install cups
+RUN apt-get update && \
+    apt-get install -y cups && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+
+RUN useradd \
+    --groups=sudo,lp,lpadmin \
+    --create-home \
+    --home-dir=/home/print \
+    --shell=/bin/bash \
+    print
+
+# set password
+RUN echo "print:print" | chpasswd
+
+
+COPY start.sh start.sh
+
+# Start the CUPS service
+CMD ["bash", "start.sh"]

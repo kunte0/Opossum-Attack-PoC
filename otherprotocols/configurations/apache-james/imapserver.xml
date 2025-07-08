@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<imapservers>
+	<imapserver enabled="true">
+		<jmxName>imapserver</jmxName>
+		<bind>0.0.0.0:143</bind>
+		<tls socketTLS="false" startTLS="true">
+			<privateKey>file://conf/server.key</privateKey>
+			<certificates>file://conf/server.crt</certificates>
+			<supportedProtocols>
+				<protocol>TLSv1.2</protocol>
+			</supportedProtocols>
+		</tls>
+	</imapserver>
+	<imapserver enabled="true">
+		<jmxName>imapserver-ssl</jmxName>
+		<bind>0.0.0.0:993</bind>
+		<tls socketTLS="true" startTLS="false">
+			<privateKey>file://conf/server.key</privateKey>
+			<certificates>file://conf/server.crt</certificates>
+			<supportedProtocols>
+				<protocol>TLSv1.2</protocol>
+			</supportedProtocols>
+		</tls>
+	</imapserver>
+</imapservers>

