@@ -7,9 +7,9 @@ RFC 2817 - Opossum Attack: Application Layer Desynchronization using Opportunist
 
 
 ## Proof of Concepts
-This repo contains proof of concepts (PoCs) for the Opossum attack, which is a desynchronization attack against HTTPS via TLS upgrade headers. 
+This repository contains proof-of-concepts (PoCs) for the Opossum attack, a desynchronization attack against HTTPS via TLS upgrade headers. 
 The PoCs are designed to demonstrate various vulnerabilities and attack vectors that can be exploited using this technique. We provide docker
-container of web servers that implement RFC 2817. 
+containers of web servers that implement RFC 2817. 
 
 
 ## Example: Running the CatDog PoC Against Apache2
@@ -23,16 +23,16 @@ container of web servers that implement RFC 2817.
 
 ## PoCs
 
-Some PoCs use specific endpoints in apache. 
+Some PoCs use specific files in the Apache webroot. 
 
 - attack-apache-post.py -> Apache request body desynchronization leaks cookie (uses `servers/apache2/www/apache-mitb.html`)
-- attack-catdog.py -> Content confusion, request cat.html but response from dog.html is received
+- attack-catdog.py -> Content confusion, request cat.html but the response from dog.html is received
 - attack-cups-cookiefixation.py -> Fixate the Anti CSRF token, bypass CSRF protection (uses `servers/apache2/www/cups-csrf.html`)
 - attack-cyrus.py -> Cyrus IMAP server Opposum PoC
 - attack-icecast.py -> Icecast server Opposum PoC
-- attack-purify.py -> Replace dompurify with a different script
+- attack-purify.py -> Replace DOMPurify with a different script
 - attack-rangexss.py -> Use range header to trigger XSS by extracting a particular segment of a response
 - attack-selfxss.py -> Example trigger self-XSS with attacker cookie
-- attack-session-get.py -> Log the victim into attacker account via GET
-- attack-session-post.py -> Log the victim into attacker account via POST (not working because of body desynchronization)
+- attack-session-get.py -> Log the victim into the attacker account via GET
+- attack-session-post.py -> Log the victim into the attacker account via POST (not working because of body desynchronization)
 - attack-trace.py -> TRACE XSS attack example
