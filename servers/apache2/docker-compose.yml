@@ -8,6 +8,7 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./conf/default.conf:/etc/apache2/sites-enabled/000-default.conf
+      - ./conf/default.conf:/etc/apache2/sites-available/000-default.conf
       - ./www/:/var/www/html
-      - ./certs/rootCA.pem:/etc/ssl/certs/rootCA.pem
+      - ./certs/server.crt:/etc/apache2/server.crt
+      - ./certs/server.key:/etc/apache2/server.key
