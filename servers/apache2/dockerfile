@@ -12,7 +12,8 @@ RUN apt-get update && \
 
 # Enable the required Apache modules
 RUN a2enmod rewrite && \
-    a2enmod ssl
+    a2enmod ssl && \
+    a2enmod headers
 
 # Start the Apache service
 CMD ["apache2ctl", "-D", "FOREGROUND"]

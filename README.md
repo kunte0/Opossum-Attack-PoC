@@ -21,6 +21,21 @@ containers of web servers that implement RFC 2817.
 1. `python attack-catdog.py`-> opens server on https://127.0.0.1:1234 that acts as a proxy
 1. `curl -i -k https://127.0.0.1:1234/cat.html` -> response from dog.html is received
 
+## Demo with your own domain (`pocs/opossum.py`)
+
+`pocs/opossum.py` bundles the Apache PoCs into one MitM proxy.
+
+Presets: `catdog`, `selfxss`, `rangexss`, `session`, `purify`, `mitb`. In the terminal `space` toggles
+attack/passthrough, `1`-`6` pick a preset, `q` quits (needs Apache <= 2.4.63).
+
+Two terminals:
+
+    python3 pocs/opossum.py catdog --target DOMAIN --host DOMAIN --listen 127.0.0.1:1234 --passthrough
+    pocs/demo-chrome.sh DOMAIN
+
+`demo-chrome.sh` opens a throwaway Chrome profile in which DOMAIN resolves to the proxy. The page shows 
+the cat; press `space` and reload for the dog.
+
 ## PoCs
 
 Some PoCs use specific files in the Apache webroot. 

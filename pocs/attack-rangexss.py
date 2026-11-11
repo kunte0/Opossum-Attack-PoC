@@ -21,7 +21,7 @@ upgrade_request = (
         'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36\r\n'
         'Upgrade: TLS/1.0\r\n'
         'Connection: Upgrade\r\n'
-        'Range: bytes=5-29\r\n'
+        'Range: bytes=5-43\r\n'
         '\r\n'
     ).encode()
 

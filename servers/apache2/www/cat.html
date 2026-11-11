@@ -1,1 +1,21 @@
-<h1>CAT</h1>
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CAT</title>
+<style>
+  body { margin: 0; min-height: 100vh; display: grid; place-items: center; text-align: center;
+         font-family: system-ui, sans-serif; background: #2563eb; color: #fff; }
+  .pet { font-size: min(38vw, 16rem); line-height: 1.1; }
+  h1 { font-size: clamp(3rem, 12vw, 7rem); margin: 0 0 .3em; letter-spacing: .05em; }
+  p { font-size: clamp(1rem, 3vw, 1.5rem); margin: .4em; }
+  code { background: rgba(0, 0, 0, .3); padding: .15em .5em; border-radius: .3em; }
+</style>
+<main>
+  <div class="pet">🐱</div>
+  <h1>CAT</h1>
+  <p>content of <code>/cat.html</code></p>
+  <p>address bar <code id="url"></code></p>
+</main>
+<script>document.getElementById('url').textContent = location.href</script>
+</html>

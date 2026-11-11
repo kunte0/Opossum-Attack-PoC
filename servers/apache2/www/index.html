@@ -1,1 +1,27 @@
-<h1>Hi</h1>
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Opossum PoCs</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 42rem; margin: 2rem auto; padding: 0 1rem; line-height: 1.5; }
+  li { margin: .6em 0; }
+  code { background: #eee; padding: .1em .35em; border-radius: .25em; }
+  .key { color: #666; font-size: .9em; }
+</style>
+<h1>Opossum PoCs</h1>
+<ul>
+  <li><b>Resource confusion</b>: <a href="/cat.html">cat.html</a>, <a href="/dog.html">dog.html</a>
+    <span class="key">(key 1)</span></li>
+  <li><b>Self-XSS &rarr; reflected XSS</b>: <a href="/selfxss.php">selfxss.php</a>
+    <span class="key">(key 2)</span></li>
+  <li><b>Range header XSS</b>: <a href="/safe.html">safe.html</a>
+    <span class="key">(key 3)</span></li>
+  <li><b>Session fixation</b>: <a href="/login.php">login.php</a> (<code>admin</code> / <code>admin</code>), <a href="/admin.php">admin.php</a>
+    <span class="key">(key 4)</span></li>
+  <li><b>Script replacement (DOMPurify)</b>: <a href="/purify.html">purify.html</a>
+    <span class="key">(key 5)</span></li>
+  <li><b>Request body desync / cookie leak</b>: <a href="/guestbook.php">guestbook.php</a> (sets the HttpOnly+Secure cookie, and the stolen request shows up here as a comment)
+    <span class="key">(key 6, needs the attacker page)</span></li>
+</ul>
+</html>

@@ -1,14 +1,33 @@
-
 services:
   apache2:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: dockerfile
+    environment:
+      - DOMAIN=${DOMAIN:-localhost}
     ports:
-      - "80:80"
-      - "443:443"
+      # change e.g. to 8080/8443 to run Apache and the stage proxy (port 443) on the same laptop
+      - "${HTTP_PORT:-80}:80"
+      - "${HTTPS_PORT:-443}:443"
     volumes:
       - ./conf/default.conf:/etc/apache2/sites-available/000-default.conf
       - ./www/:/var/www/html
-      - ./certs/server.crt:/etc/apache2/server.crt
-      - ./certs/server.key:/etc/apache2/server.key
+      # override in .env with your real certificate (e.g. Let's Encrypt fullchain.pem / privkey.pem)
+      - ${CERT_FILE:-./certs/server.crt}:/etc/apache2/server.crt:ro
+      - ${KEY_FILE:-./certs/server.key}:/etc/apache2/server.key:ro
+
+  # Optional: the attacker proxy on port 1234 of the same host, so anyone can compare
+  #   https://DOMAIN/cat.html  (normal)   vs.   https://DOMAIN:1234/cat.html  (attacked)
+  # Start with: docker compose --profile attacker up -d
+  opossum:
+    profiles: ["attacker"]
+    image: python:3.13-slim
+    command: >
+      python -u /opossum.py ${OPOSSUM_PRESET:-catdog}
+      --target apache2 --host ${DOMAIN:-localhost} --listen 0.0.0.0:1234
+    volumes:
+      - ../../pocs/opossum.py:/opossum.py:ro
+    ports:
+      - "1234:1234"
+    depends_on:
+      - apache2
